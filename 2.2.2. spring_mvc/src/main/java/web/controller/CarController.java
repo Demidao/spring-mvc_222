@@ -12,11 +12,20 @@ import java.util.List;
 @Controller
 public class CarController {
 
+    private CarService carService;
+
+    @Autowired
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
+
+
+
     @GetMapping("cars")
     public String getMyCars(@RequestParam(value = "count", required = false) int count,
                             Model model) {
 
-        List<Car> carListByCount = new CarServiceImpl().getCars(count);
+        List<Car> carListByCount = carService.getCars(count);
 
         model.addAttribute("carListByCount", carListByCount);
         model.addAttribute("car", new Car());
